@@ -1,8 +1,39 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import games from "./views/games/index.js";
 
 Vue.use(Router);
+
+var gamesRoutes = [];
+
+games.forEach(function(game) {
+  gamesRoutes.push({
+    path: `/${game.slug}`,
+    name: `/${game.name}`,
+    component: () => import("./views/games/GameView.vue"),
+    props: {
+      game: () => import(`./${game.componentPath}`),
+      name: game.name,
+      prev: getPrev(game.name),
+      next: getNext(game.name)
+    }
+  });
+});
+
+function getNext(name) {
+  var currentGameIndex = games.findIndex(game => game.name == name);
+  return games[(currentGameIndex + 1) % games.length].slug;
+}
+
+function getPrev(name) {
+  var currentGameIndex = games.findIndex(game => game.name == name);
+  if (currentGameIndex - 1 < 0) currentGameIndex = games.length;
+  return games[currentGameIndex - 1].slug;
+}
+
+function getLatest() {
+  return games[games.length - 1].slug;
+}
 
 export default new Router({
   mode: "history",
@@ -11,16 +42,18 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      redirect: `/${getLatest()}`
     },
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
-    }
+      component: () => import("./views/About.vue")
+    },
+    {
+      path: "/archive",
+      name: "archive",
+      component: () => import("./views/Archive.vue")
+    },
+    ...gamesRoutes
   ]
 });
