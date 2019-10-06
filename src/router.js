@@ -14,6 +14,7 @@ games.forEach(function(game) {
     props: {
       game: () => import(`./${game.componentPath}`),
       name: game.name,
+      controls: game.controls,
       prev: getPrev(game.name),
       next: getNext(game.name)
     }

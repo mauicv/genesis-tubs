@@ -45,8 +45,8 @@ html {
 }
 
 canvas {
-  height: 90%;
-  width: 85%;
+  height: 80%;
+  width: 100%;
   border: solid;
   border-radius: 10px;
 }

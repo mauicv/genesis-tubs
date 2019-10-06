@@ -3,12 +3,12 @@
     <b-row>
       <b-col></b-col>
       <b-col cols="8">
-        <div class="title">
+        <div class="game-view-title">
           <img
             alt="genesis-tubs logo"
             src="../../assets/genesis-tub.png"
-            height="80px"
-            width="80px"
+            height="40px"
+            width="40px"
           />
           <span style="margin-left:20px;">Genesis Tubs</span>
         </div>
@@ -28,6 +28,10 @@
       </b-col>
       <b-col></b-col>
     </b-row>
+    <component :is="game" />
+    <div>
+      {{ controls }}
+    </div>
     <b-row>
       <b-col></b-col>
       <b-col>
@@ -52,14 +56,20 @@
         {{ name }}
       </div>
     </b-row>
-    <component :is="game" />
   </b-container>
 </template>
 
 <script>
 export default {
   name: "game-view",
-  props: ["name", "game", "prev", "next"]
+  props: ["name", "controls", "game", "prev", "next"],
+  beforeRouteLeave(to, from, next) {
+    var gameInstance = this.$children.find(el => el.controller != null);
+    if (gameInstance) {
+      gameInstance.controller.destroy();
+    }
+    next();
+  }
 };
 </script>
 
@@ -68,11 +78,18 @@ export default {
   margin: auto;
   font-size: 20px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .game-link {
   margin: 10px;
   font-size: 12px;
+}
+
+.game-view-title {
+  background-color: rgba(255, 255, 255, 0.6);
+  font-size: 30px;
+  color: black;
+  margin-top: 0px;
 }
 </style>
