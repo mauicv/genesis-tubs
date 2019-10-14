@@ -18,11 +18,14 @@ export default {
       controller: null,
       running: false,
       finished: false,
+      winner: {
+        worm: null
+      },
       input: {
         a: { on: false },
         d: { on: false },
-        w: { on: false },
-        s: { on: false }
+        l: { on: false },
+        r: { on: false }
       },
       box: {
         center: null,

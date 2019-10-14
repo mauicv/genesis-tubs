@@ -5,7 +5,6 @@
 <script>
 import builder from "./js/build.js";
 import drawer from "./js/draw.js";
-import input from "./js/input.js";
 
 export default {
   name: "asteroids",
@@ -17,25 +16,13 @@ export default {
       drawCtx: null,
       controller: null,
       running: false,
-      finished: false,
-      input: {
-        a: { on: false },
-        d: { on: false },
-        w: { on: false },
-        s: { on: false }
-      },
-      box: {
-        center: null,
-        height: null,
-        width: null,
-        outerHeight: null,
-        outerWidth: null
-      }
+      finished: false
     };
   },
   mounted() {
     this.setupCanvas();
     var enviro = this.loadEnviroment();
+    this.draw(enviro);
     this.createAndstart(enviro);
   },
   methods: {
@@ -70,16 +57,12 @@ export default {
     onkeydown(event) {
       if (!this.finished) {
         event.keyCode == 32 && this.running ? this.stop() : this.start();
-        input.keydown(this, event.keyCode);
       } else {
         if (event.keyCode == 32) {
           this.restart();
           this.finished = false;
         }
       }
-    },
-    onkeyup(event) {
-      input.keyup(this, event.keyCode);
     },
     // game state methods
     createAndstart(enviro) {

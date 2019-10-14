@@ -12,6 +12,21 @@ var gameRoutes = [
     slug: "city-run",
     date: "06/10/19",
     controls: "Movement: a, w, and d keys, Pause, Play and Restart: space key"
+  },
+  {
+    componentPath: "views/games/particles/Game.vue",
+    name: "Particles",
+    slug: "particles",
+    date: "06/10/19",
+    controls: "Obligatory particle simulation"
+  },
+  {
+    componentPath: "views/games/wormRace/Game.vue",
+    name: "Worm Racer",
+    slug: "worm-racer",
+    date: "06/10/19",
+    controls:
+      "left and right arrow keys to move top worm (worm2). a and d to move bottom worm. (worm1)"
   }
 ];
 

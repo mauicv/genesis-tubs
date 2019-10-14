@@ -22,48 +22,72 @@ export default {
 
     enviro.structures.forEach(function(structure, index) {
       enviro.builder.addBoundingRect(structure);
-      structure.features.push(Features["mass"]);
+      if ([0, 1, 2, 3, 4, 5, 6].includes(index)) {
+        structure.features.push(Features["mass"]);
+      }
+
       if ([0, 1, 2, 3, 4].includes(index)) {
         enviro.laws.gravity.structures.push(structure);
         enviro.laws.airResistance.structures.push(structure);
       }
     });
 
+    enviro.gameState = {
+      dead: false,
+      finished: false,
+      time: 0
+    };
+
+    var beams = enviro.constraints.filter(c => c.type == "beam");
+    enviro.laws.collisionLaw = Laws.collisionLaw({
+      structure: enviro.structures[5],
+      enviro: enviro,
+      beams: beams,
+      gameState: enviro.gameState
+    });
+    enviro.laws.collisionLaw.structures.push(enviro.structures[6]);
+
+    enviro.laws.course = Laws.course({
+      start: enviro.structures[7].elements[1],
+      mid: enviro.structures[7].elements[2],
+      finish: enviro.structures[7].elements[0],
+      ship: enviro.convexSets[0],
+      gameState: enviro.gameState
+    });
+
     enviro.laws.thruster1 = Laws.thruster(
-      0.0015,
+      0.0012,
       enviro.convexSets[1].graphics[0],
       enviro.convexSets.filter((set, i) => [0, 1, 2, 3, 4].includes(i)),
-      ctx.input.w
+      ctx.input.w,
+      enviro.gameState
     );
 
     enviro.laws.thruster2 = Laws.thruster(
-      0.0015,
+      0.0012,
       enviro.convexSets[2].graphics[2],
       enviro.convexSets.filter((set, i) => [0, 1, 2, 3, 4].includes(i)),
-      ctx.input.w
+      ctx.input.w,
+      enviro.gameState
     );
 
     enviro.laws.thruster3 = Laws.thruster(
       0.005,
       enviro.convexSets[1].graphics[2],
       enviro.convexSets.filter((set, i) => [1].includes(i)),
-      ctx.input.a
+      ctx.input.a,
+      enviro.gameState
     );
 
     enviro.laws.thruster4 = Laws.thruster(
       0.005,
       enviro.convexSets[2].graphics[0],
       enviro.convexSets.filter((set, i) => [2].includes(i)),
-      ctx.input.d
+      ctx.input.d,
+      enviro.gameState
     );
 
-    var beams = enviro.constraints.filter(c => c.type == "beam");
-    enviro.laws.collisionLaw = Laws.collisionLaw(
-      enviro.structures[5],
-      enviro,
-      beams
-    );
-    enviro.laws.collisionLaw.structures.push(enviro.structures[6]);
+    console.log(enviro);
 
     return enviro;
   },
@@ -71,8 +95,12 @@ export default {
   createRunner: function(ctx, enviro) {
     var draw = ctx.draw;
     var animationRef;
+    var state = { finished: false };
 
     function run() {
+      if (enviro.gameState.dead || enviro.gameState.finished) {
+        state.finished = true;
+      }
       enviro.timeStep();
       draw(enviro);
       animationRef = window.requestAnimationFrame(run);
@@ -89,6 +117,7 @@ export default {
     }
 
     return {
+      state: state,
       run: run,
       stop: stop,
       destroy: destroy

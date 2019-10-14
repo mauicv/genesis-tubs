@@ -84,6 +84,8 @@ export default {
         this.running = false;
         this.controller.destroy();
       }
+      document.removeEventListener("keydown", this.onkeydown, false);
+      document.removeEventListener("keyup", this.onkeyup, false);
     },
     loadEnviroment() {
       var asteroidsEnvironment = engine.SL.parse(iss);

@@ -57,13 +57,15 @@ export default {
     },
     // input methods
     onkeydown(event) {
-      if (!this.finished) {
+      if (!this.controller.state.finished) {
         event.keyCode == 32 && this.running ? this.stop() : this.start();
         input.keydown(this, event.keyCode);
       } else {
         if (event.keyCode == 32) {
           this.restart();
           this.finished = false;
+        } else {
+          input.keydown(this, event.keyCode);
         }
       }
     },
@@ -100,6 +102,8 @@ export default {
         this.running = false;
         this.controller.destroy();
       }
+      document.removeEventListener("keydown", this.onkeydown, false);
+      document.removeEventListener("keyup", this.onkeyup, false);
     },
     createRunner(enviro) {
       return builder.createRunner(this, enviro);

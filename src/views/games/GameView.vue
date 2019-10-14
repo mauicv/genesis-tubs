@@ -66,6 +66,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     var gameInstance = this.$children.find(el => el.controller != null);
     if (gameInstance) {
+      gameInstance.destroy();
       gameInstance.controller.destroy();
     }
     next();
