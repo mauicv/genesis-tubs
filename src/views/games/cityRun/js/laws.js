@@ -265,7 +265,7 @@ function explosion(law, report, duration, size) {
       [],
       true
     );
-  } else if ((size == "sparks")) {
+  } else if (size == "sparks") {
     law.enviro.builder.addExplodeStucture(
       1,
       2,
