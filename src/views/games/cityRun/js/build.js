@@ -99,7 +99,6 @@ export default {
       if (enviro.gameState.dead || enviro.gameState.finished) {
         state.finished = true;
       }
-      console.log("city run");
       enviro.timeStep();
       draw(enviro);
       animationRef = window.requestAnimationFrame(run);

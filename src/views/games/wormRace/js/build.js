@@ -96,7 +96,6 @@ export default {
 
     function run() {
       enviro.timeStep();
-      console.log("worm race");
       draw(enviro);
       animationRef = window.requestAnimationFrame(run);
     }
