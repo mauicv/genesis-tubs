@@ -1,3 +1,5 @@
+"use strict";
+
 import engine from "genesis-tubs-engine";
 const gm = engine.GeneralMethods;
 const Law = engine.Law;
@@ -9,7 +11,7 @@ export default {
   gravity: (function() {
     var gravity = new Law("Gravity");
     gravity.effects = function() {
-      this.applyToAllPoints(function(point) {
+      gravity.applyToAllPoints(function(point) {
         point.update_x_xd([0, 0.001]);
       });
     };
@@ -20,7 +22,7 @@ export default {
     var airResistance = new Law("AirResistance");
     //airResistance.frictionalConstant=0.001;
     airResistance.effects = function() {
-      this.applyToAllPoints(function(point) {
+      airResistance.applyToAllPoints(function(point) {
         point.update_x_xd(gm.mult(gm.minus(point.x_old, point.x), 0.001));
       });
     };
@@ -30,7 +32,7 @@ export default {
   finite: (function() {
     var finite = new Law("lifeTime");
     finite.effects = function() {
-      this.applyToStructures(function(structure) {
+      finite.applyToStructures(function(structure) {
         if (structure.alive) {
           if (structure.stuff.age > structure.stuff.lifeLength) {
             structure.kill();
@@ -47,7 +49,7 @@ export default {
     var boundary = new Law("boundary");
     boundary.box = box;
     boundary.effects = function() {
-      this.applyToStructures(function(structure) {
+      boundary.applyToStructures(function(structure) {
         var center = gm.minus(structure.stuff.center.x, box.center);
         if (center[0] > box.outerWidth) {
           structure.elements.forEach(function(element) {

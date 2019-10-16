@@ -2,21 +2,23 @@ import engine from "genesis-tubs-engine";
 const Features = engine.featureInstances;
 import Laws from "./laws.js";
 
-import example from "raw-loader!../environment/env.txt";
+import wormRace from "raw-loader!../environment/env.txt";
 
 export default {
   // Setup physics environment
   createEnvironment: function(ctx) {
-    var otherEnviro = JSON.parse(JSON.stringify(example));
-    var enviro = engine.SL.parseGTBFormat(example);
+    var otherEnviro = JSON.parse(JSON.stringify(wormRace));
+    var enviro = engine.SL.parseGTBFormat(wormRace);
     var otherWorm = engine.SL.parseGTBFormat(otherEnviro);
-
+    window.data = null;
     otherWorm.points.forEach(point => {
       point.update_x_xd([0, -400]);
       point.update_x_old_xd([0, -400]);
     });
 
     enviro.builder.addEnvironment(otherWorm);
+
+    otherWorm = null;
 
     enviro.points.forEach(point => {
       point.update_x_xd([40, -90]);
@@ -94,6 +96,7 @@ export default {
 
     function run() {
       enviro.timeStep();
+      console.log("worm race");
       draw(enviro);
       animationRef = window.requestAnimationFrame(run);
     }
@@ -104,7 +107,8 @@ export default {
 
     function destroy() {
       stop();
-      enviro = null;
+      enviro.builder.cleanEnvironment();
+      // enviro = null;
       animationRef = null;
     }
 

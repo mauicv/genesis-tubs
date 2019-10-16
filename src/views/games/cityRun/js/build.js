@@ -8,15 +8,15 @@ export default {
   // Setup physics environment
   createEnvironment: function(ctx) {
     var enviro = engine.SL.parseGTBFormat(example);
-
+    window.data = null;
     enviro.realCenter = [ctx.canvas.width / 2, ctx.canvas.height / 2];
 
     enviro.relativeCenter = enviro.structures[2];
     ctx.box.center = enviro.realCenter;
     ctx.box.height = ctx.canvas.height / 2;
     ctx.box.width = ctx.canvas.width / 2;
-    ctx.box.outerHeight = ctx.canvas.height / 2 + 300;
-    ctx.box.outerWidth = ctx.canvas.width / 2 + 300;
+    // ctx.box.outerHeight = ctx.canvas.height / 2 + 300;
+    // ctx.box.outerWidth = ctx.canvas.width / 2 + 300;
 
     enviro.structures[6].fix();
 
@@ -87,8 +87,6 @@ export default {
       enviro.gameState
     );
 
-    console.log(enviro);
-
     return enviro;
   },
 
@@ -101,6 +99,7 @@ export default {
       if (enviro.gameState.dead || enviro.gameState.finished) {
         state.finished = true;
       }
+      console.log("city run");
       enviro.timeStep();
       draw(enviro);
       animationRef = window.requestAnimationFrame(run);
@@ -112,8 +111,17 @@ export default {
 
     function destroy() {
       stop();
-      enviro = null;
+      enviro.builder.cleanEnvironment();
+      // enviro = null;
       animationRef = null;
+      draw = null;
+      ctx.box = {
+        center: null,
+        height: null,
+        width: null,
+        outerHeight: null,
+        outerWidth: null
+      };
     }
 
     return {

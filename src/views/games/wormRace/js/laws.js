@@ -77,8 +77,6 @@ export default {
     finishLine.finishBox = finishBox;
     finishLine.finished = false;
 
-    console.log(finishLine.winner);
-
     finishLine.effects = function() {
       finishLine.worms.forEach(worm => {
         if (!finishLine.finished) {

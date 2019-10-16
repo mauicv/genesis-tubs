@@ -7,7 +7,7 @@ export default {
   // Setup physics environment
   createEnvironment: function(ctx) {
     var enviro = engine.SL.parseGTBFormat(example);
-
+    window.data = null;
     enviro.realCenter = [ctx.canvas.width / 2, ctx.canvas.height / 2];
 
     enviro.relativeCenter = enviro.structures[2];
@@ -16,8 +16,6 @@ export default {
     ctx.box.width = ctx.canvas.width / 2;
     ctx.box.outerHeight = ctx.canvas.height / 2 + 300;
     ctx.box.outerWidth = ctx.canvas.width / 2 + 300;
-
-    console.log(enviro.convexSets);
 
     enviro.structures[5].fix();
 

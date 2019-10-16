@@ -83,6 +83,13 @@ export default {
       if (this.controller) {
         this.running = false;
         this.controller.destroy();
+        this.box = {
+          center: null,
+          height: null,
+          width: null,
+          outerHeight: null,
+          outerWidth: null
+        };
       }
       document.removeEventListener("keydown", this.onkeydown, false);
       document.removeEventListener("keyup", this.onkeyup, false);

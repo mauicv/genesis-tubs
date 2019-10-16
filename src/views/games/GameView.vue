@@ -37,15 +37,9 @@
       <b-col>
         <div>
           <div>
-            <router-link class="game-link" :to="`/${prev}`">
-              &#8880;&#8759;prev
-            </router-link>
-
+            <a :href="`./${prev}`">&#8880;&#8759;prev</a>
             &equiv;&#8527;&equiv;
-
-            <router-link class="game-link" :to="`/${next}`">
-              next&#8759;&#8881;
-            </router-link>
+            <a :href="`./${next}`">next&#8759;&#8881;</a>
           </div>
         </div>
       </b-col>
@@ -62,15 +56,7 @@
 <script>
 export default {
   name: "game-view",
-  props: ["name", "controls", "game", "prev", "next"],
-  beforeRouteLeave(to, from, next) {
-    var gameInstance = this.$children.find(el => el.controller != null);
-    if (gameInstance) {
-      gameInstance.destroy();
-      gameInstance.controller.destroy();
-    }
-    next();
-  }
+  props: ["name", "controls", "game", "prev", "next"]
 };
 </script>
 

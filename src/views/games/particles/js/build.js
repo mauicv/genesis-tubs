@@ -3,7 +3,6 @@ const Law = engine.lawInstances;
 import Features from "./features.js";
 import particles from "./particleTypes.js";
 
-console.log(Features.interactionLaws);
 export default {
   // Setup physics environment
   createEnvironment: function(ctx) {
@@ -36,7 +35,6 @@ export default {
       structure.features.push(interactions);
     });
     // enviro.timeStep();
-    console.log(enviro);
     return enviro;
   },
 
@@ -46,7 +44,6 @@ export default {
 
     function run() {
       enviro.timeStep();
-
       draw(enviro);
       animationRef = window.requestAnimationFrame(run);
     }
@@ -57,7 +54,8 @@ export default {
 
     function destroy() {
       stop();
-      enviro = null;
+      enviro.builder.cleanEnvironment();
+      // enviro = null;
       animationRef = null;
     }
 

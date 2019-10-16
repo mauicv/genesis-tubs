@@ -25,6 +25,9 @@ export default {
     this.draw(enviro);
     this.createAndstart(enviro);
   },
+  beforeDestroy: function() {
+    this.destroy();
+  },
   methods: {
     setupCanvas() {
       var canvas = document.getElementById("Canvas");

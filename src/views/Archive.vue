@@ -37,9 +37,9 @@
           <b-col cols="2">
             <div v-for="(item, index) in index" v-bind:key="index">
               <span class="index-num">{{ index + 1 }}</span>
-              <router-link class="game-link" :to="`/${item.route}`">
+              <a class="game-link" :href="`./${item.route}`">
                 {{ item.title }}
-              </router-link>
+              </a>
             </div>
           </b-col>
           <b-col></b-col>

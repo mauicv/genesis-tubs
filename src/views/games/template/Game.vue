@@ -38,6 +38,9 @@ export default {
     var enviro = this.loadEnviroment();
     this.createAndstart(enviro);
   },
+  beforeDestroy: function() {
+    this.destroy();
+  },
   methods: {
     setupCanvas() {
       var canvas = document.getElementById("Canvas");
