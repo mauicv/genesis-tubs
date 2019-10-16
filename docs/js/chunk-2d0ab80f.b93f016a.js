@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0ab80f"],{"160d":function(a,c,o){"use strict";o.r(c),c["default"]={particleTypes:[{color:"#24c4a9",name:"A",radius:4},{color:"#a9c524",name:"B",radius:4},{color:"#c5242d",name:"D",radius:2},{color:"#29c524",name:"E",radius:2},{color:"#12debc",name:"F"}]}}}]);
+//# sourceMappingURL=chunk-2d0ab80f.b93f016a.js.map
