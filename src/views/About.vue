@@ -79,10 +79,9 @@
                 maintained.
               </p>
               <p>
-                All the content is created by me. Including the music and
-                background images. Feel free to email me any suggestions or
-                praise at genesis.tub@gmail.com. I am, however notoriously bad
-                at responding to and reading things so expect to be ignored.
+                Feel free to email me any suggestions or praise at
+                genesis.tub@gmail.com. I am, however notoriously bad at
+                responding to and reading things so expect to be ignored.
               </p>
               <p>
                 Finally if you enjoyed the content then consider
