@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./src/assets/favicon.png"],"names":["module","exports"],"mappings":"qGAAAA,EAAOC,QAAU,IAA0B","file":"js/chunk-2d0e6c96.d6e4d7da.js","sourcesContent":["module.exports = __webpack_public_path__ + \"img/favicon.360f949e.png\";"],"sourceRoot":""}
